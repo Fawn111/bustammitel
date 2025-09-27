@@ -7,10 +7,12 @@ export default function MyOrders() {
   const { user } = useAuth(); // ✅ Get logged-in user
   const [orders, setOrders] = useState([]);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
   const fetchUserOrders = async () => {
     try {
       if (!user?._id) return; // no user
-      const res = await axios.get(`http://localhost:4001/orders/user/${user._id}`);
+      const res = await axios.get(`${API_URL}/orders/user/${user._id}`);
       console.log("Fetched orders:", res.data);
       setOrders(res.data);
     } catch (err) {
