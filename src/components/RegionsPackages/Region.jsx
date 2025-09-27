@@ -15,10 +15,10 @@ const RegionPackagesPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    const storedName = localStorage.getItem("userName");
+    const storedName = localStorage.getItem("user");
     if (storedName) setUserName(storedName);
 
-    const handleStorage = () => setUserName(localStorage.getItem("userName"));
+    const handleStorage = () => setUserName(localStorage.getItem("user"));
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
   }, [slug]);

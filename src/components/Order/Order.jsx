@@ -1,35 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaBitcoin, FaUniversity, FaCreditCard } from "react-icons/fa";
+import { FaBitcoin, FaUniversity, FaCreditCard, FaTicketAlt } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const OrderPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { package: pkg, operator, region = null, country = null, cardType } = location.state || {};
 
+  // Hooks
   const [paymentMethod, setPaymentMethod] = useState("binance");
   const [coupon, setCoupon] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [availableCoupons, setAvailableCoupons] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [orderDetails, setOrderDetails] = useState(null);
 
-  if (!pkg || !operator || !country || !user) {
-    return <div className="text-center mt-10 text-gray-600">No order details found or you are not logged in</div>;
-  }
-
   const API_URL = import.meta.env.VITE_API_URL;
+  const { package: pkg, operator, region = null, country = null, cardType } = location.state || {};
 
+  // Fetch available coupons
+  useEffect(() => {
+    fetch(`${API_URL}/coupons/`)
+      .then((res) => res.json())
+      .then((data) => setAvailableCoupons(data))
+      .catch((err) => console.error("Error fetching coupons:", err));
+  }, []);
+
+  // Apply coupon
   const applyCoupon = () => {
-    if (!coupon.trim()) return alert("Please enter a coupon code");
-    alert(`Coupon "${coupon}" applied!`);
+    if (!coupon.trim()) return toast.error("Please enter a coupon code");
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const found = availableCoupons.find(c => {
+      const expiry = new Date(c.expiryDate);
+      expiry.setHours(23, 59, 59, 999);
+      return c.code.toLowerCase() === coupon.toLowerCase() && expiry >= today && c.active;
+    });
+
+    if (!found) return toast.error("Invalid or expired coupon");
+
+    setAppliedCoupon(found);
+    toast.success(`Coupon "${found.code}" applied!`);
+  };
+
+  const getDiscountedPrice = () => {
+    if (!appliedCoupon) return pkg.price;
+
+    if (appliedCoupon.type === "percentage") {
+      return (pkg.price - (pkg.price * appliedCoupon.value) / 100).toFixed(2);
+    } else {
+      return Math.max(pkg.price - appliedCoupon.value, 0).toFixed(2);
+    }
   };
 
   const handlePlaceOrder = async () => {
-    try {
-      console.log("User in context:", user);
-console.log("User ID being sent:", user?._id);
+    if (!user) {
+      toast.error("You must be logged in to place an order");
+      navigate("/login");
+      return;
+    }
 
+    try {
       const response = await fetch(`${API_URL}/orders/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -42,18 +77,18 @@ console.log("User ID being sent:", user?._id);
           country: { title: country.title },
           region: region ? { title: region.title } : null,
           paymentMethod,
-          coupon,
+          coupon: appliedCoupon ? appliedCoupon.code : null,
         }),
       });
 
       if (!response.ok) throw new Error("Failed to place order");
-
       const data = await response.json();
       setOrderDetails(data);
       setShowPopup(true);
+      toast.success("Order placed successfully!");
     } catch (err) {
       console.error("Error creating order:", err.message);
-      alert("Failed to place order");
+      toast.error("Failed to place order");
     }
   };
 
@@ -62,6 +97,14 @@ console.log("User ID being sent:", user?._id);
     { id: "bank", name: "Bank Transfer", icon: <FaUniversity size={24} />, description: "Transfer the amount from your bank account." },
     { id: "card", name: "Credit/Debit Card", icon: <FaCreditCard size={24} />, description: "Pay using your card securely." },
   ];
+
+  if (!pkg || !operator || !country) {
+    return (
+      <div className="text-center mt-10 text-gray-600">
+        No order details found
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-12 space-y-8 relative">
@@ -133,34 +176,62 @@ console.log("User ID being sent:", user?._id);
 
       {/* Coupon */}
       <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg space-y-3 border border-gray-200">
-        <h2 className="text-lg font-bold text-gray-900 mb-2">Apply Code</h2>
-        <div className="flex flex-col md:flex-row gap-3">
+        <h2 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+          <FaTicketAlt className="text-orange-500" /> Apply Coupon
+        </h2>
+
+        <div className="flex flex-col md:flex-row gap-3 items-center">
           <input
             type="text"
             value={coupon}
             onChange={(e) => setCoupon(e.target.value)}
             placeholder="Enter coupon code"
             className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+            disabled={appliedCoupon}
           />
-          <button
-            onClick={applyCoupon}
-            className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition font-semibold"
-          >
-            Apply
-          </button>
+
+          {appliedCoupon ? (
+            <div className="flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-lg font-semibold">
+              Applied: {appliedCoupon.code} (
+              {appliedCoupon.type === "percentage" ? `${appliedCoupon.value}%` : `$${appliedCoupon.value}`})
+              <button
+                onClick={() => {
+                  setAppliedCoupon(null);
+                  setCoupon("");
+                }}
+                className="ml-2 text-green-700 hover:text-green-900 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={applyCoupon}
+              className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition font-semibold"
+            >
+              Apply
+            </button>
+          )}
         </div>
+
+        {appliedCoupon && (
+          <p className="text-sm text-green-700 mt-1">
+            Discount applied: {appliedCoupon.type === "percentage"
+              ? `${appliedCoupon.value}% off`
+              : `$${appliedCoupon.value} off`}
+          </p>
+        )}
       </div>
 
       {/* Total Price */}
-      <div className="bg-gray-50 p-4 md:p-6 rounded-2xl shadow-lg flex justify-between items-center border border-gray-200 text-lg font-semibold">
-        <span>TOTAL PRICE</span>
-        <span>${pkg.price} USD</span>
+      <div className="bg-gray-50 p-4 md:p-6 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-center border border-gray-200 text-lg font-semibold space-y-2 md:space-y-0">
+        <span>Total Price:</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xl font-bold">${getDiscountedPrice()} USD</span>
+          {appliedCoupon && <span className="text-green-600 text-sm line-through">${pkg.price} USD</span>}
+        </div>
       </div>
-
-      <p className="text-sm text-gray-500">
-        Before completing this order, please confirm your device is eSIM compatible and network-unlocked. <span className="underline cursor-pointer">Learn More</span>
-      </p>
-
+<p className="text-sm text-gray-500"> Before completing this order, please confirm your device is eSIM compatible and network-unlocked. <span className="underline cursor-pointer">Learn More</span> </p>
       <button
         onClick={handlePlaceOrder}
         className="w-full bg-gradient-to-r py-3 font-bold cursor-pointer from-orange-500 to-orange-400 text-white rounded-2xl hover:from-orange-600 hover:to-orange-500 transition text-lg"

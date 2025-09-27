@@ -15,12 +15,8 @@ import ServicesPage from "./components/Services/Service";
 import Why from "./components/WhyBusta/Why";
 import Order from "./components/Order/Order";
 import RegionPackagesPage from "./components/RegionsPackages/Region";
-import AdminLayout from "./components/Admin/AdminLayout";
-import Dashboard from "./components/Admin/Dashboard";
-import AdminOrders from "./components/Admin/Orders";
-import AdminCoupon from "./components/Admin/Coupon";
-import User from "./components/Admin/User";
 import MyOrders from "./components/Myorders/Myorders";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   return (
@@ -29,6 +25,7 @@ export default function App() {
       <SubNavbar />
 
       <main className="flex-grow">
+         <Toaster position="top-right" reverseOrder={false} />
         <Routes>
           {/* Home page */}
           <Route
@@ -49,12 +46,6 @@ export default function App() {
             }
           />
 
-          <Route path="/admin" element={<AdminLayout />}>
-      <Route path="dashboard" element={<Dashboard />} />
-      <Route path="orders" element={<AdminOrders />} />
-      <Route path="coupon" element={<AdminCoupon />} />
-      <Route path="users" element={<User />} />
-    </Route>
 
 <Route path="/region/:slug" element={<RegionPackagesPage />} />
           <Route path="/:countrySlug" element={<CountryPackages />} />
