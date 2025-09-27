@@ -15,6 +15,12 @@ import ServicesPage from "./components/Services/Service";
 import Why from "./components/WhyBusta/Why";
 import Order from "./components/Order/Order";
 import RegionPackagesPage from "./components/RegionsPackages/Region";
+import AdminLayout from "./components/Admin/AdminLayout";
+import Dashboard from "./components/Admin/Dashboard";
+import AdminOrders from "./components/Admin/Orders";
+import AdminCoupon from "./components/Admin/Coupon";
+import User from "./components/Admin/User";
+import MyOrders from "./components/Myorders/Myorders";
 
 export default function App() {
   return (
@@ -43,9 +49,17 @@ export default function App() {
             }
           />
 
+          <Route path="/admin" element={<AdminLayout />}>
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="orders" element={<AdminOrders />} />
+      <Route path="coupon" element={<AdminCoupon />} />
+      <Route path="users" element={<User />} />
+    </Route>
+
 <Route path="/region/:slug" element={<RegionPackagesPage />} />
           <Route path="/:countrySlug" element={<CountryPackages />} />
             <Route path="/services" element={<ServicesPage />} />
+             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/order-confirmation" element={<Order />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

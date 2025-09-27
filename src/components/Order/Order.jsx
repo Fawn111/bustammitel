@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaBitcoin, FaUniversity, FaCreditCard } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 
 const OrderPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { package: pkg, operator, region = null, country = null } = location.state || {};
+  const { user } = useAuth();
+  const { package: pkg, operator, region = null, country = null, cardType } = location.state || {};
 
   const [paymentMethod, setPaymentMethod] = useState("binance");
   const [coupon, setCoupon] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
 
-  if (!pkg || !operator || !country) {
-    return <div className="text-center mt-10 text-gray-600">No order details found</div>;
+  if (!pkg || !operator || !country || !user) {
+    return <div className="text-center mt-10 text-gray-600">No order details found or you are not logged in</div>;
   }
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -24,15 +27,18 @@ const OrderPage = () => {
 
   const handlePlaceOrder = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/orders/`, {
+      console.log("User in context:", user);
+console.log("User ID being sent:", user?._id);
+
+      const response = await fetch(`${API_URL}/orders/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          userId: user._id,
+          username: user.name,
+          cardType: cardType || "eSIM",
           package: pkg,
-          operator: {
-            title: operator.title,
-            image: operator.image?.url,
-          },
+          operator: { title: operator.title, image: operator.image?.url },
           country: { title: country.title },
           region: region ? { title: region.title } : null,
           paymentMethod,
@@ -43,10 +49,10 @@ const OrderPage = () => {
       if (!response.ok) throw new Error("Failed to place order");
 
       const data = await response.json();
-      console.log("Order placed:", data);
+      setOrderDetails(data);
       setShowPopup(true);
     } catch (err) {
-      console.error(err);
+      console.error("Error creating order:", err.message);
       alert("Failed to place order");
     }
   };
@@ -163,16 +169,27 @@ const OrderPage = () => {
       </button>
 
       {/* Confirmation Popup */}
-      {showPopup && (
+      {showPopup && orderDetails && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-2xl shadow-xl w-80 text-center space-y-4">
             <h2 className="text-xl font-bold text-gray-900">Order Placed!</h2>
             <p className="text-gray-700">Your order has been successfully placed.</p>
+
+            <div className="text-left border-t border-gray-200 pt-3 space-y-1">
+              <p><span className="font-semibold">Order ID:</span> {orderDetails._id}</p>
+              <p><span className="font-semibold">Package:</span> {orderDetails.package.title}</p>
+              <p><span className="font-semibold">Country:</span> {orderDetails.country.title}</p>
+              <p><span className="font-semibold">Status:</span> {orderDetails.status}</p>
+            </div>
+
             <button
-              onClick={() => navigate("/")}
+              onClick={() => {
+                navigate("/my-orders");
+                setShowPopup(false);
+              }}
               className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition font-semibold"
             >
-              Return to Homepage
+              View My Orders
             </button>
           </div>
         </div>

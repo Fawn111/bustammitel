@@ -1,10 +1,12 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useAuth } from "../../context/AuthContext"; // import AuthContext
 
 export default function SubNavbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth(); // get user from context
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleScrollToId = (id) => {
@@ -29,6 +31,12 @@ export default function SubNavbar() {
     { name: "Our Services", path: "/services" },
     { name: "About Bustammitel", path: "/about" },
   ];
+
+  // Add user-specific links if logged in
+  if (user) {
+    links.push({ name: "My eSIMs", path: "/my-esims" });
+    links.push({ name: "My Orders", path: "/my-orders" });
+  }
 
   return (
     <nav className="w-full bg-[#faf4ef] border-t border-gray-200 sticky top-0 z-50">
@@ -69,11 +77,7 @@ export default function SubNavbar() {
             className="flex items-center px-3 py-2 text-gray-800 font-medium hover:bg-gray-200 rounded-md"
           >
             Menu
-            {dropdownOpen ? (
-              <ChevronUp className="ml-2 h-5 w-5" />
-            ) : (
-              <ChevronDown className="ml-2 h-5 w-5" />
-            )}
+            {dropdownOpen ? <ChevronUp className="ml-2 h-5 w-5" /> : <ChevronDown className="ml-2 h-5 w-5" />}
           </button>
 
           {dropdownOpen && (

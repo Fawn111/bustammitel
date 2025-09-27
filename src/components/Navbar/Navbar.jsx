@@ -1,33 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Globe, CreditCard, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/Logo/logo.png";
 
 export default function Navbar() {
-  const [userName, setUserName] = useState(null);
+  const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedName = localStorage.getItem("userName");
-    if (storedName) setUserName(storedName);
-
-    const handleStorage = () => {
-      setUserName(localStorage.getItem("userName"));
-    };
-
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("userName");
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    setUserName(null);
-    navigate("/");
+  const handleLogout = async () => {
+    await logout(); // logs out and clears localStorage
     setMobileMenuOpen(false);
+    navigate("/");
   };
+
+  const userName = user?.name || "";
 
   return (
     <nav className="w-full bg-[#faf4ef] shadow-sm">
@@ -42,26 +30,21 @@ export default function Navbar() {
           <button className="p-1.5 hover:bg-gray-200 rounded-full">
             <Globe className="h-4 w-4 text-black" />
           </button>
-
           <button className="p-1.5 hover:bg-gray-200 rounded-full">
             <CreditCard className="h-4 w-4 text-black" />
           </button>
 
           <div className="h-6 w-px bg-gray-300"></div>
 
-          {userName ? (
+          {user ? (
             <div className="flex items-center space-x-3">
-              <span className="font-medium text-gray-800 text-sm">
-                Hi, {userName}
-              </span>
-
+              <span className="font-medium text-gray-800 text-sm">Hi, {userName}</span>
               <Link
                 to="/my-esims"
                 className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
               >
                 My eSIMs
               </Link>
-
               <button
                 onClick={handleLogout}
                 className="px-3 py-1 bg-red-500 text-white rounded-full text-sm font-medium hover:bg-red-600 transition"
@@ -105,23 +88,27 @@ export default function Navbar() {
             <button className="p-1.5 hover:bg-gray-200 rounded-full">
               <Globe className="h-4 w-4 text-black" />
             </button>
-
             <button className="p-1.5 hover:bg-gray-200 rounded-full">
               <CreditCard className="h-4 w-4 text-black" />
             </button>
           </div>
 
-          {userName ? (
+          {user ? (
             <>
-              <span className="font-medium text-gray-800 text-sm block">
-                Hi, {userName}
-              </span>
+              <span className="font-medium text-gray-800 text-sm block">Hi, {userName}</span>
               <Link
                 to="/my-esims"
                 className="block px-3 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 My eSIMs
+              </Link>
+              <Link
+                to="/my-orders"
+                className="block px-3 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                My Orders
               </Link>
               <button
                 onClick={handleLogout}
