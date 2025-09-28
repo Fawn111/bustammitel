@@ -24,7 +24,7 @@ export default function Footer() {
           <h3 className="font-semibold text-lg mb-3">About eSIMs</h3>
           <ul className="space-y-2 text-sm">
             <li>What is an eSIM?</li>
-            <li>How Airalo works</li>
+            <li>How Bustammitel works</li>
             <li>Device compatibility</li>
           </ul>
           <h3 className="font-semibold text-lg mt-6 mb-3">Get help</h3>
@@ -41,15 +41,15 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
             <li>Latest posts</li>
           </ul>
-          <h3 className="font-semibold text-lg mt-6 mb-3">Airalo</h3>
+          <h3 className="font-semibold text-lg mt-6 mb-3">Bustammitel</h3>
           <ul className="space-y-2 text-sm">
-            <li>About Airalo</li>
+            <li>About Bustammitel</li>
             <li>Impact</li>
             <li>Our values</li>
             <li>Media center</li>
             <li>Newsroom</li>
             <li>Job vacancies</li>
-            <li>Working at Airalo</li>
+            <li>Working at Bustammitel</li>
           </ul>
         </div>
 
