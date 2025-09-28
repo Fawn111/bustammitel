@@ -18,7 +18,7 @@ export default function Navbar() {
   const userName = user?.name || "";
 
   return (
-    <nav className="w-full bg-[#faf4ef] shadow-sm">
+    <nav className="w-full bg-[#faf4ef] shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
         <Link to="/" className="flex items-center space-x-2">
           <img src={logo} alt="eSIM Logo" className="h-12 w-12 md:h-16 md:w-16" />
