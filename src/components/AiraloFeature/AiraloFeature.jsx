@@ -1,4 +1,3 @@
-// AiraloFeatureSection.jsx
 import { FaGlobeAmericas, FaExchangeAlt, FaMobileAlt, FaQrcode } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 

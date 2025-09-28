@@ -9,27 +9,27 @@ const WhyBustammitel = () => {
       description: "Delivering trusted telecom solutions since 2013.",
     },
     {
-      icon: <FaBolt className="text-red-600 w-8 h-8" />,
+      icon: <FaBolt className="text-orange-600 w-8 h-8" />,
       title: "Reliability Guaranteed",
       description: "Seamless, secure, and always-on communication.",
     },
     {
-      icon: <FaHeadset className="text-red-600 w-8 h-8" />,
+      icon: <FaHeadset className="text-orange-600 w-8 h-8" />,
       title: "24/7 Expert Support",
       description: "Dedicated assistance to keep you connected anytime, anywhere.",
     },
     {
-      icon: <FaCogs className="text-red-600 w-8 h-8" />,
+      icon: <FaCogs className="text-orange-600 w-8 h-8" />,
       title: "Innovation First",
       description: "Bringing the latest technologies like 5G, IoT, and cloud connectivity to our clients.",
     },
     {
-      icon: <FaGlobe className="text-red-600 w-8 h-8" />,
+      icon: <FaGlobe className="text-orange-600 w-8 h-8" />,
       title: "Global Connectivity",
       description: "Reliable services including eSIM, VoIP, and DID numbers to keep you connected worldwide.",
     },
     {
-      icon: <FaUsers className="text-red-600 w-8 h-8" />,
+      icon: <FaUsers className="text-orange-600 w-8 h-8" />,
       title: "Customer-Centric Approach",
       description: "Tailored solutions designed around your unique needs and flexible payment methods.",
     },
