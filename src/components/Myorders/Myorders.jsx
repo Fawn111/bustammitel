@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { FaBox, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from "react-icons/fa";
 
 export default function MyOrders() {
-  const { user } = useAuth(); // ✅ Get logged-in user
+  const { user } = useAuth(); 
   const [orders, setOrders] = useState([]);
 
     const API_URL = import.meta.env.VITE_API_URL;
@@ -63,7 +63,7 @@ export default function MyOrders() {
 
       {orders.length === 0 && (
         <p className="text-center text-gray-500 mt-20 text-lg">
-          You don’t have any eSIM orders yet. 🚀
+          You don’t have any eSIM orders yet.
         </p>
       )}
 
@@ -119,11 +119,9 @@ export default function MyOrders() {
         ))}
       </div>
 
-      {/* Modal */}
       {selectedOrder && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm bg-opacity-40 z-50">
           <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg relative animate-fadeIn">
-            {/* Close Button */}
             <button
               onClick={() => setSelectedOrder(null)}
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl"
@@ -131,7 +129,6 @@ export default function MyOrders() {
               ×
             </button>
 
-            {/* Modal Content */}
             <h3 className="text-2xl font-bold mb-4 text-gray-900">
               {selectedOrder.package?.title || selectedOrder.package?.name}
             </h3>

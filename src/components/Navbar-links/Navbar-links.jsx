@@ -1,12 +1,12 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useAuth } from "../../context/AuthContext"; // import AuthContext
+import { useAuth } from "../../context/AuthContext";
 
 export default function SubNavbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useAuth(); // get user from context
+  const { user } = useAuth(); 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleScrollToId = (id) => {
@@ -41,7 +41,6 @@ export default function SubNavbar() {
   return (
     <nav className="w-full bg-[#faf4ef] border-t border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-center px-6 py-3">
-        {/* Desktop Links */}
         <div className="hidden md:flex items-center justify-center space-x-8 w-full">
           {links.map((link) =>
             link.id ? (
@@ -70,7 +69,6 @@ export default function SubNavbar() {
           )}
         </div>
 
-        {/* Mobile Dropdown */}
         <div className="md:hidden relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}

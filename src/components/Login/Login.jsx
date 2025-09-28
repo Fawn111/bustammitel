@@ -24,20 +24,19 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ Update AuthContext
         login({
           _id: data.user?._id,
           name: data.user?.name,
           email: data.user?.email,
         });
 
-        setMessage("✅ Login successful!");
-        navigate("/"); // navigate after login
+        setMessage("Login successful!");
+        navigate("/"); 
       } else {
         setMessage(data.error || "Invalid credentials.");
       }
     } catch (err) {
-      setMessage("⚠️ Something went wrong. Try again.");
+      setMessage("Something went wrong. Try again.");
     }
   };
 
@@ -45,10 +44,9 @@ export default function Login() {
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-orange-100 via-white to-orange-50 px-4">
       <form
         onSubmit={handleLogin}
-        className="bg-white p-8 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-gray-200"
-      >
+        className="bg-white p-8 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-gray-200">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-4 sm:mb-6 text-gray-800">
-          Welcome Back 👋
+          Welcome Back 
         </h2>
         <p className="text-center text-gray-500 mb-6 sm:mb-8 text-sm sm:text-base">
           Log in to continue to your account
@@ -92,9 +90,7 @@ export default function Login() {
         {message && (
           <p
             className={`mt-3 sm:mt-4 text-center font-medium text-sm sm:text-base ${
-              message.startsWith("✅") ? "text-green-600" : "text-red-500"
-            }`}
-          >
+              message.startsWith("") ? "text-green-600" : "text-red-500"}`}>
             {message}
           </p>
         )}

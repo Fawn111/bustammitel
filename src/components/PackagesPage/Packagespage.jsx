@@ -80,7 +80,6 @@ const PackagesPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      {/* Country Header */}
       <div className="flex flex-col md:flex-row items-center mb-12 gap-6">
         {countryData.image?.url && (
           <img
@@ -94,7 +93,6 @@ const PackagesPage = () => {
         </h1>
       </div>
 
-      {/* Operators and Packages */}
       {countryData.operators.map((operator) => (
         <div key={operator.id} className="mb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-6 gap-6">
@@ -128,7 +126,6 @@ const PackagesPage = () => {
             </div>
           </div>
 
-          {/* Packages */}
           <div className="flex space-x-6 overflow-x-auto py-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
             {operator.packages.map((pkg) => (
               <div
@@ -175,7 +172,6 @@ const PackagesPage = () => {
         </div>
       ))}
 
-      {/* Modal */}
       {modalData && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-start z-50 p-4 overflow-auto">
           <div className="bg-white rounded-2xl max-w-5xl w-full p-6 relative shadow-2xl">
@@ -187,7 +183,6 @@ const PackagesPage = () => {
               &times;
             </button>
 
-            {/* Operator Header */}
             <div className="flex flex-col md:flex-row items-center md:items-start mb-6 gap-4">
               <img
                 src={modalData.operator.image?.url}
@@ -202,7 +197,6 @@ const PackagesPage = () => {
               </div>
             </div>
 
-            {/* Horizontal scrollable package cards */}
             <div className="flex space-x-4 overflow-x-auto py-4 mb-6 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
               {modalData.operator.packages.map((pkg) => (
                 <div
@@ -227,14 +221,11 @@ const PackagesPage = () => {
               ))}
             </div>
 
-            {/* Two-column layout */}
             <div className="flex flex-col md:flex-row gap-6 mb-6">
-              {/* Left: Description + Coverage + Supported Country + Total Price */}
               <div className="md:w-1/2 bg-gray-50 p-4 rounded-xl shadow-md text-sm">
                 <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
                 <p className="text-gray-700">{modalData.operator.other_info || "No description available."}</p>
 
-                {/* Supported Country */}
                 <div className="mt-4">
                   <h4 className="font-semibold text-gray-900 mb-2">Supported Country</h4>
                   <div className="flex items-center gap-2 bg-gray-100 px-2 py-1 rounded-full text-xs">
@@ -273,7 +264,6 @@ const PackagesPage = () => {
                   </div>
                 )}
 
-                {/* Total Price */}
                 <div className="mt-4 flex justify-between items-center bg-gray-200 px-4 py-2 rounded-lg">
                   <span className="font-semibold text-gray-900">Total Price:</span>
                   <span className="text-gray-900 font-bold">
@@ -282,7 +272,6 @@ const PackagesPage = () => {
                 </div>
               </div>
 
-              {/* Right: Plan Details with gradient */}
               <div className="md:w-1/2 p-4 rounded-xl shadow-md text-sm" style={{ background: `linear-gradient(135deg, ${modalData.operator.gradient_start}, ${modalData.operator.gradient_end})`, color: "white" }}>
                 <h3 className="font-semibold text-white mb-2">Plan Details</h3>
                 <div className="flex justify-between mb-1">
@@ -307,7 +296,6 @@ const PackagesPage = () => {
               </div>
             </div>
 
-            {/* Confirm button */}
             <button
               onClick={() => {
                 if (!user) {

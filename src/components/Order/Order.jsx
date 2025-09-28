@@ -9,7 +9,6 @@ const OrderPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // Hooks
   const [paymentMethod, setPaymentMethod] = useState("binance");
   const [coupon, setCoupon] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState(null);
@@ -28,7 +27,6 @@ const OrderPage = () => {
       .catch((err) => console.error("Error fetching coupons:", err));
   }, []);
 
-  // Apply coupon
   const applyCoupon = () => {
     if (!coupon.trim()) return toast.error("Please enter a coupon code");
 
@@ -112,7 +110,6 @@ const OrderPage = () => {
         Secure Checkout
       </h1>
 
-      {/* Package Summary */}
       <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg space-y-4 border border-gray-200 flex flex-col md:flex-row gap-6">
         <div className="flex-shrink-0 w-full md:w-48 h-48 md:h-auto">
           <img
@@ -152,7 +149,6 @@ const OrderPage = () => {
         </div>
       </div>
 
-      {/* Payment Methods */}
       <div className="space-y-4">
         <h2 className="text-lg font-bold text-gray-900 mb-2">Choose Payment Method</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -174,7 +170,6 @@ const OrderPage = () => {
         </div>
       </div>
 
-      {/* Coupon */}
       <div className="bg-white p-4 md:p-6 rounded-2xl shadow-lg space-y-3 border border-gray-200">
         <h2 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
           <FaTicketAlt className="text-orange-500" /> Apply Coupon
@@ -223,7 +218,6 @@ const OrderPage = () => {
         )}
       </div>
 
-      {/* Total Price */}
       <div className="bg-gray-50 p-4 md:p-6 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-center border border-gray-200 text-lg font-semibold space-y-2 md:space-y-0">
         <span>Total Price:</span>
         <div className="flex items-center gap-2">
@@ -239,7 +233,6 @@ const OrderPage = () => {
         COMPLETE ORDER
       </button>
 
-      {/* Confirmation Popup */}
       {showPopup && orderDetails && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-2xl shadow-xl w-80 text-center space-y-4">

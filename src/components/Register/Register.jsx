@@ -23,13 +23,13 @@ export default function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage("✅ Registered successfully! Redirecting...");
+        setMessage("Registered successfully! Redirecting...");
         setTimeout(() => navigate("/login"), 2000);
       } else {
-        setMessage("❌ " + data.error);
+        setMessage(" " + data.error);
       }
     } catch (err) {
-      setMessage("⚠️ Server error. Try again later.");
+      setMessage("Server error. Try again later.");
     }
   };
 
@@ -40,13 +40,12 @@ export default function Register() {
         className="bg-white p-6 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-gray-200"
       >
         <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-4 sm:mb-6 text-gray-800">
-          Create Account ✨
+          Create Account
         </h2>
         <p className="text-center text-gray-500 mb-6 sm:mb-8 text-sm sm:text-base">
           Fill in your details to get started
         </p>
 
-        {/* Full Name */}
 <div className="mb-4">
   <label className="block text-gray-700 font-medium mb-1 sm:mb-2">
     Full Name
@@ -61,7 +60,6 @@ export default function Register() {
   />
 </div>
 
-{/* Email */}
 <div className="mb-4">
   <label className="block text-gray-700 font-medium mb-1 sm:mb-2">
     Email Address
@@ -76,7 +74,6 @@ export default function Register() {
   />
 </div>
 
-{/* Password */}
 <div className="mb-6">
   <label className="block text-gray-700 font-medium mb-1 sm:mb-2">
     Password
@@ -91,7 +88,6 @@ export default function Register() {
   />
 </div>
 
-        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-orange-500 text-white cursor-pointer py-3 sm:py-3.5 rounded-lg hover:bg-orange-600 transition duration-200 font-semibold text-lg"
@@ -99,18 +95,16 @@ export default function Register() {
           Register
         </button>
 
-        {/* Message */}
         {message && (
           <p
             className={`mt-4 text-center font-medium ${
-              message.startsWith("✅") ? "text-green-600" : "text-red-500"
+              message.startsWith("") ? "text-green-600" : "text-red-500"
             }`}
           >
             {message}
           </p>
         )}
 
-        {/* Login Link */}
         <p className="mt-6 text-center text-gray-600 text-sm sm:text-base">
           Already registered?{" "}
           <Link
