@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import "../AboutPage.css"; // we'll add custom animation here
 
 export default function AboutPage() {
+
+        useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, []);
   return (
     <div className="bg-[#faf4ef] min-h-screen py-16 px-6 relative overflow-hidden">
       {/* Background Decorative Gradient Blobs */}

@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 const devices = {
+    
   Apple: [
     "iPhone 17 / 17 Pro / 17 Pro Max / Air",
     "iPhone 16 (all: e, Plus, Pro, Pro Max)",
@@ -177,6 +178,10 @@ function Highlight({ text, query }) {
 }
 
 export default function EsimDevicesPage() {
+
+        useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   const [search, setSearch] = useState("");
 
   // filter brands + models
