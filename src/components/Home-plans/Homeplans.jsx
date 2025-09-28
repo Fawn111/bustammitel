@@ -117,7 +117,7 @@ const CountriesTabs = () => {
                 ? "Local eSIMs"
                 : tab === "global"
                 ? "Regional eSIMs"
-                : "Discover+ eSIMs"}
+                : "Global eSIMs"}
             </button>
           ))}
         </div>
