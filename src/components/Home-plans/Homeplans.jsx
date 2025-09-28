@@ -14,10 +14,15 @@ const CountriesTabs = () => {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const url =
-        activeTab === "local"
-          ? `${API_URL}/countries/local?limit=1000&page=1`
-          : `${API_URL}/countries/global?limit=1000&page=1`;
+      let url;
+
+      if (activeTab === "local") {
+        url = `${API_URL}/countries/local?limit=1000&page=1`;
+      } else if (activeTab === "global") {
+        url = `${API_URL}/countries/global?limit=1000&page=1`;
+      } else if (activeTab === "discoverplus") {
+        url = `${API_URL}/countries/global/discover?limit=1000&page=1`;
+      }
 
       const token = localStorage.getItem("token");
 
@@ -31,7 +36,12 @@ const CountriesTabs = () => {
       if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
 
       const data = await response.json();
-      const newItems = activeTab === "local" ? data.countries : data.regions;
+      const newItems =
+        activeTab === "local"
+          ? data.countries
+          : activeTab === "discoverplus"
+          ? data.regions
+          : data.regions;
 
       setItems(newItems || []);
     } catch (err) {
@@ -70,7 +80,6 @@ const CountriesTabs = () => {
       </div>
     ));
 
-  // Framer Motion variants
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
@@ -94,7 +103,7 @@ const CountriesTabs = () => {
 
         {/* Tabs */}
         <div className="flex justify-center space-x-6 mb-10">
-          {["local", "global"].map((tab) => (
+          {["local", "global", "discoverplus"].map((tab) => (
             <button
               key={tab}
               className={`text-lg font-semibold pb-2 transition-all duration-300 cursor-pointer ${
@@ -104,7 +113,11 @@ const CountriesTabs = () => {
               }`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab === "local" ? "Local eSIMs" : "Regional eSIMs"}
+              {tab === "local"
+                ? "Local eSIMs"
+                : tab === "global"
+                ? "Regional eSIMs"
+                : "Discover+ eSIMs"}
             </button>
           ))}
         </div>
@@ -128,9 +141,9 @@ const CountriesTabs = () => {
                   className="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-2xl shadow-lg cursor-pointer"
                   onClick={() => handleItemClick(item)}
                 >
-                  {item.image?.url || item.imageUrl ? (
+                  {item.imageUrl ? (
                     <img
-                      src={item.image?.url || item.imageUrl}
+                      src={item.imageUrl}
                       alt={item.title}
                       className="w-20 h-20 object-cover rounded-full border-2 border-orange-400 shadow-md"
                     />
