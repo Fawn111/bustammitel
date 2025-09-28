@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronRight, Smartphone, Search } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Smartphone,
+  Search,
+  AlertCircle,
+} from "lucide-react";
 
 const devices = {
   Apple: [
@@ -155,44 +161,25 @@ const devices = {
   ],
   Surface: ["Surface Pro 9", "Surface Go 3", "Surface Pro X", "Surface Duo / Duo 2"],
 };
-
-const Section = ({ brand, models, defaultOpen }) => {
-     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, []);
-  const [open, setOpen] = useState(defaultOpen);
-
-  return (
-    <div className="border border-orange-200 rounded-2xl shadow-md mb-4 bg-white overflow-hidden transition">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-lg hover:bg-orange-50 rounded-2xl transition"
-      >
-        <div className="flex items-center gap-2 text-orange-600">
-          <Smartphone className="w-5 h-5" />
-          {brand}
-        </div>
-        {open ? (
-          <ChevronDown className="text-orange-700" />
-        ) : (
-          <ChevronRight className="text-orange-600" />
-        )}
-      </button>
-      {open && (
-        <ul className="px-8 pb-4 space-y-2 text-gray-700 text-sm list-disc">
-          {models.map((m, i) => (
-            <li key={i}>{m}</li>
-          ))}
-        </ul>
-      )}
-    </div>
+function Highlight({ text, query }) {
+  if (!query) return <>{text}</>;
+  const regex = new RegExp(`(${query})`, "gi");
+  const parts = text.split(regex);
+  return parts.map((part, i) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <mark key={i} className="bg-yellow-200 text-black rounded px-0.5">
+        {part}
+      </mark>
+    ) : (
+      <span key={i}>{part}</span>
+    )
   );
-};
+}
 
 export default function EsimDevicesPage() {
   const [search, setSearch] = useState("");
 
-  // Filter brands + models
+  // filter brands + models
   const filteredDevices = Object.entries(devices).reduce(
     (acc, [brand, models]) => {
       const matchedModels = models.filter((m) =>
@@ -210,14 +197,18 @@ export default function EsimDevicesPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#faf4ef]">
-      <div className="max-w-4xl mx-auto p-6">
+    <div className="min-h-screen bg-[#faf4ef] relative overflow-hidden">
+      {/* background gradients */}
+      <div className="absolute top-[-100px] left-[-150px] w-[400px] h-[400px] bg-gradient-to-br from-orange-200 via-pink-200 to-red-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+      <div className="absolute bottom-[-120px] right-[-100px] w-[350px] h-[350px] bg-gradient-to-tr from-yellow-200 via-orange-300 to-red-300 rounded-full blur-3xl opacity-30 animate-float"></div>
+
+      <div className="relative max-w-6xl mx-auto p-6 z-10">
         {/* Hero */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-orange-600 mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-orange-600 mb-4 drop-shadow-sm">
             eSIM Compatible Devices
           </h1>
-          <p className="text-gray-700 max-w-2xl mx-auto text-base md:text-lg">
+          <p className="text-gray-700 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
             Not sure if your device supports{" "}
             <span className="font-semibold">Bustammitel eSIM</span>? Explore our
             up-to-date list of supported smartphones, tablets, and laptops. If
@@ -226,7 +217,7 @@ export default function EsimDevicesPage() {
         </div>
 
         {/* Search */}
-        <div className="mb-6 flex items-center bg-white border border-orange-200 rounded-xl shadow-sm px-4 py-2">
+        <div className="mb-8 flex items-center bg-white border border-orange-200 rounded-xl shadow-md px-4 py-3 hover:shadow-lg transition">
           <Search className="w-5 h-5 text-gray-500" />
           <input
             type="text"
@@ -237,28 +228,45 @@ export default function EsimDevicesPage() {
           />
         </div>
 
-        {/* Sections */}
-        {Object.entries(filteredDevices).length > 0 ? (
-          Object.entries(filteredDevices).map(([brand, models], i) => (
-            <Section
-              key={i}
-              brand={brand}
-              models={models}
-              defaultOpen={search.length > 0} // auto-open when searching
-            />
-          ))
-        ) : (
-          <p className="text-center text-gray-500 mt-6">
-            No devices found matching your search.
-          </p>
-        )}
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {Object.entries(filteredDevices).length > 0 ? (
+            Object.entries(filteredDevices).map(([brand, models], i) => (
+              <div
+                key={i}
+                className="bg-white border border-orange-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Smartphone className="w-5 h-5 text-orange-600" />
+                  <h2 className="text-lg font-bold text-orange-600">
+                    <Highlight text={brand} query={search} />
+                  </h2>
+                </div>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-gray-700 text-sm list-disc list-inside">
+                  {models.map((m, i) => (
+                    <li key={i}>
+                      <Highlight text={m} query={search} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500 mt-6 col-span-2">
+              No devices found matching your search.
+            </p>
+          )}
+        </div>
 
         {/* Info Box */}
-        <div className="mt-10 text-sm md:text-base text-gray-700 bg-orange-50 border border-orange-200 p-5 rounded-xl shadow-md">
-          ⚠️ <span className="font-semibold">Important:</span> Some regional
-          models (China, Hong Kong, Taiwan, Turkey, Korea, etc.) may not support
-          eSIM. Please confirm with your device manufacturer or carrier before
-          purchasing.
+        <div className="mt-10 text-sm md:text-base text-gray-700 bg-orange-50 border border-orange-200 p-5 rounded-xl shadow-md flex items-start gap-3">
+          <AlertCircle className="text-orange-500 w-5 h-5 mt-0.5" />
+          <p>
+            <span className="font-semibold">Important:</span> Some regional
+            models (China, Hong Kong, Taiwan, Turkey, Korea, etc.) may not
+            support eSIM. Please confirm with your device manufacturer or
+            carrier before purchasing.
+          </p>
         </div>
       </div>
     </div>
