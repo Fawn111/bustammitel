@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import SubNavbar from "./components/Navbar-links/Navbar-links";
 import Footer from "./components/Footer/Footer";
 import Hero from "./components/Hero/Hero";
-import AiraloFeatureSection from "./components/AiraloFeature/AiraloFeature";
+import AFeatureSection from "./components/AiraloFeature/AFeature";
 import FaqSupportSection from "./components/Supportcard/SupportCard";
 import Homeplan from "./components/Home-plans/Homeplans";
 import CountryPackages from "./components/PackagesPage/Packagespage";
@@ -35,7 +35,7 @@ export default function App() {
                 <div id="estore">
         <Homeplan />
       </div>
-                <AiraloFeatureSection />
+                <AFeatureSection />
                 <div id="why-bustammitel">
   <Why />
 </div>
