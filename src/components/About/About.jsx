@@ -2,6 +2,7 @@ import { Globe, Zap, MessageCircle, ShieldCheck } from "lucide-react";
 import newAboutImg from "../../assets/real.svg"; // Replace with a modern illustration
 import { Link } from "react-router-dom";
 import "../AboutPage.css"; // we'll add custom animation here
+import { useEffect } from "react";
 
 export default function AboutPage() {
 
