@@ -40,7 +40,6 @@ const FaqSupportSection = () => {
                 </div>
                 {openIndex === index && (
                   <div className="mt-2 text-gray-600 text-sm">
-                    {/* Placeholder answer */}
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae.
                   </div>
                 )}
@@ -51,7 +50,7 @@ const FaqSupportSection = () => {
 
         <div className="flex-1 bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between">
           <div>
-            <h3 className="text-sm text-gray-600 mb-2 font-extrabold">Support</h3>
+            <h3 className="text-lg text-black mb-2 font-extrabold">Support</h3>
             <p className="text-xl font-semibold text-black mb-4">
               Need help? We offer 24/7, multi-language support
             </p>
