@@ -6,7 +6,6 @@ import Footer from "./components/Footer/Footer";
 import Hero from "./components/Hero/Hero";
 import AiraloFeatureSection from "./components/AiraloFeature/AiraloFeature";
 import FaqSupportSection from "./components/Supportcard/SupportCard";
-import Video from "./components/VideoSection/Video";
 import Homeplan from "./components/Home-plans/Homeplans";
 import CountryPackages from "./components/PackagesPage/Packagespage";
 import Login from "./components/Login/Login";
@@ -40,7 +39,6 @@ export default function App() {
                 <div id="why-bustammitel">
   <Why />
 </div>
-                <Video />
                 <FaqSupportSection />
               </>
             }

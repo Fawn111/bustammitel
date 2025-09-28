@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CountriesTabs = () => {
   const [activeTab, setActiveTab] = useState("local");
@@ -16,7 +17,7 @@ const CountriesTabs = () => {
       const url =
         activeTab === "local"
           ? `${API_URL}/countries/local?limit=1000&page=1`
-          : `${API_URL}/countries/global?limit=1000&page=1`; // assuming global returns regions
+          : `${API_URL}/countries/global?limit=1000&page=1`;
 
       const token = localStorage.getItem("token");
 
@@ -53,7 +54,6 @@ const CountriesTabs = () => {
       const slug = item.slug || item.country_code.toLowerCase();
       navigate(`/${slug}-esims?type=local`);
     } else {
-      // Navigate to RegionPackagesPage instead of showing modal
       const slug = item.slug;
       navigate(`/region/${slug}`, { state: { type: "global" } });
     }
@@ -70,12 +70,27 @@ const CountriesTabs = () => {
       </div>
     ));
 
+  // Framer Motion variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.5 },
+    }),
+  };
+
   return (
     <div className="bg-[#faf4ef] py-12">
       <div className="max-w-7xl mx-auto px-6">
-        <h1 className="text-4xl sm:text-5xl font-extrabold mb-10 text-center text-gray-900">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl sm:text-5xl font-extrabold mb-10 text-center text-gray-900"
+        >
           Explore eSIMs
-        </h1>
+        </motion.h1>
 
         {/* Tabs */}
         <div className="flex justify-center space-x-6 mb-10">
@@ -102,39 +117,47 @@ const CountriesTabs = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {displayedItems.map((item) => (
-              <div
-  key={item.country_code || item.slug}
-  className="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition cursor-pointer"
-  onClick={() => handleItemClick(item)}
->
-  {item.image?.url || item.imageUrl ? (
-    <img
-      src={item.image?.url || item.imageUrl}
-      alt={item.title}
-      className="w-20 h-20 object-cover rounded-full border-2 border-orange-400 shadow-md"
-    />
-  ) : (
-    <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-      <span className="text-gray-500 font-bold text-xl">{item.title[0]}</span>
-    </div>
-  )}
-  <div className="text-center font-semibold text-gray-900 text-sm sm:text-base mt-2">
-    {item.title}
-  </div>
-</div>
-
+              {displayedItems.map((item, idx) => (
+                <motion.div
+                  key={item.country_code || item.slug}
+                  custom={idx}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-2xl shadow-lg cursor-pointer"
+                  onClick={() => handleItemClick(item)}
+                >
+                  {item.image?.url || item.imageUrl ? (
+                    <img
+                      src={item.image?.url || item.imageUrl}
+                      alt={item.title}
+                      className="w-20 h-20 object-cover rounded-full border-2 border-orange-400 shadow-md"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
+                      <span className="text-gray-500 font-bold text-xl">
+                        {item.title[0]}
+                      </span>
+                    </div>
+                  )}
+                  <div className="text-center font-semibold text-gray-900 text-sm sm:text-base mt-2">
+                    {item.title}
+                  </div>
+                </motion.div>
               ))}
             </div>
 
             {!showAll && items.length > 10 && (
               <div className="flex justify-center mt-10">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setShowAll(true)}
                   className="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 shadow-lg transition font-semibold"
                 >
                   Show All
-                </button>
+                </motion.button>
               </div>
             )}
           </>
