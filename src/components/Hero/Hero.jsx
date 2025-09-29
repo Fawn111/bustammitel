@@ -5,7 +5,7 @@ import Heroimg from "../../assets/hero.avif";
 
 function Hero() {
   return (
-    <div className="overflow-hidden bg-[#faf4ef]">
+    <div className="overflow-hidden bg-white">
       <div className="w-full bg-primary min-h-[650px] md:min-h-[900px] lg:min-h-[650px]">
         <div className="flex flex-col lg:flex-row justify-around items-center h-full px-6 lg:px-16 gap-10 py-12 lg:py-0">
           

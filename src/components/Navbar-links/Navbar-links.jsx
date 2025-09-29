@@ -39,7 +39,7 @@ export default function SubNavbar() {
   }
 
   return (
-    <nav className="w-full bg-[#faf4ef] border-t border-gray-200 sticky top-16 z-50">
+    <nav className="w-full bg-white sticky top-20 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-center px-6 py-3">
         <div className="hidden md:flex items-center justify-center space-x-8 w-full">
           {links.map((link) =>

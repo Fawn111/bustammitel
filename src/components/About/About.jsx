@@ -10,7 +10,7 @@ export default function AboutPage() {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }, []);
   return (
-    <div className="bg-[#faf4ef] min-h-screen py-16 px-6 relative overflow-hidden">
+    <div className="bg-white min-h-screen py-16 px-6 relative overflow-hidden">
       {/* Background Decorative Gradient Blobs */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-orange-300 via-pink-300 to-purple-400 rounded-full blur-3xl opacity-40 animate-float"></div>
       <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-yellow-200 via-orange-200 to-red-300 rounded-full blur-3xl opacity-30 animate-float-slow"></div>

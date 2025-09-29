@@ -80,7 +80,7 @@ const FaqSupportSection = () => {
   };
 
   return (
-    <section className="bg-[#faf4ef] py-12 px-4">
+    <section className="bg-white py-12 px-4">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
         
         {/* FAQ Section */}

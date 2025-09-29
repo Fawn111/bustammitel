@@ -56,7 +56,7 @@ export default function MyOrders() {
   };
 
   return (
-        <div className="p-10 bg-gradient-to-br from-orange-50 to-white min-h-screen">
+        <div className="p-10 bg-white min-h-screen">
       <h2 className="text-4xl font-extrabold mb-8 text-center text-gray-900 tracking-tight">
         My eSIM Orders
       </h2>

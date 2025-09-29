@@ -202,7 +202,7 @@ export default function EsimDevicesPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#faf4ef] relative overflow-hidden">
+    <div className="min-h-screen bg-white relative overflow-hidden">
       {/* background gradients */}
       <div className="absolute top-[-100px] left-[-150px] w-[400px] h-[400px] bg-gradient-to-br from-orange-200 via-pink-200 to-red-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-[-120px] right-[-100px] w-[350px] h-[350px] bg-gradient-to-tr from-yellow-200 via-orange-300 to-red-300 rounded-full blur-3xl opacity-30 animate-float"></div>

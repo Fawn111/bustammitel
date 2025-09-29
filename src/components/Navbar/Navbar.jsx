@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Globe, CreditCard, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import logo from "../../assets/Logo/logo.png";
+import logo from "../../assets/Logo/4.png";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -10,7 +10,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logout(); 
+    await logout();
     setMobileMenuOpen(false);
     navigate("/");
   };
@@ -18,97 +18,96 @@ export default function Navbar() {
   const userName = user?.name || "";
 
   return (
-    <nav className="w-full bg-[#faf4ef] shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
-        <Link to="/" className="flex items-center space-x-2">
-          <img src={logo} alt="eSIM Logo" className="h-12 w-12 md:h-16 md:w-16" />
-        </Link>
+    <nav className="w-full  bg-white sticky top-0 z-50">
+     <div className="max-w-8xl mx-28 flex items-center justify-between pl-2 pr-4 py-3">
+  {/* Logo */}
+  <Link to="/" className="flex items-center mr-72">
+    <img
+      src={logo}
+      alt="eSIM Logo"
+      className="h-12 w-auto object-contain md:h-20"
+    />
+  </Link>
 
-        <div className="hidden md:flex items-center space-x-3">
-          <button className="p-1.5 hover:bg-gray-200 rounded-full">
-            <Globe className="h-4 w-4 text-black" />
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-5">
+          {/* Icons */}
+          <button className="p-2 rounded-full hover:bg-orange-100 transition">
+            <Globe className="h-5 w-5 text-gray-700" />
           </button>
-          <button className="p-1.5 hover:bg-gray-200 rounded-full">
-            <CreditCard className="h-4 w-4 text-black" />
+          <button className="p-2 rounded-full hover:bg-orange-100 transition">
+            <CreditCard className="h-5 w-5 text-gray-700" />
           </button>
 
           <div className="h-6 w-px bg-gray-300"></div>
 
+          {/* Auth */}
           {user ? (
-            <div className="flex items-center space-x-3">
-              <span className="font-medium text-gray-800 text-sm">Hi, {userName}</span>
-              <Link
-                to="/my-esims"
-                className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
-              >
-                My eSIMs
-              </Link>
+            <div className="flex items-center space-x-4">
+              <span className="font-medium text-gray-800 text-sm">
+                Hi, {userName}
+              </span>
               <button
                 onClick={handleLogout}
-                className="px-3 py-1 bg-red-500 text-white rounded-full text-sm font-medium hover:bg-red-600 transition"
+                className="px-4 py-2 bg-red-500 text-white rounded-full text-sm font-semibold hover:bg-red-600 transition-all shadow-md hover:shadow-lg"
               >
                 Logout
               </button>
             </div>
           ) : (
-            <>
+            <div className="flex items-center space-x-3">
               <Link
                 to="/login"
-                className="px-3 py-1 border border-gray-300 rounded-full text-sm font-medium text-black hover:bg-gray-100"
+                className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 transition-all"
               >
                 Log in
               </Link>
               <Link
                 to="/register"
-                className="px-3 py-1 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-orange-600"
+                className="px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
               >
                 Sign up
               </Link>
-            </>
+            </div>
           )}
         </div>
 
+        {/* Mobile Toggle */}
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-md hover:bg-gray-200"
+            className="p-2 rounded-md hover:bg-gray-200 transition"
           >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6 text-gray-800" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-800" />
+            )}
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#faf4ef] px-4 py-4 space-y-2 shadow-inner">
-          <div className="flex items-center space-x-3 mb-2">
-            <button className="p-1.5 hover:bg-gray-200 rounded-full">
-              <Globe className="h-4 w-4 text-black" />
+        <div className="md:hidden bg-[#faf4ef] px-4 py-4 space-y-3 shadow-inner animate-slideDown">
+          <div className="flex items-center space-x-3">
+            <button className="p-2 rounded-full hover:bg-orange-100 transition">
+              <Globe className="h-5 w-5 text-gray-700" />
             </button>
-            <button className="p-1.5 hover:bg-gray-200 rounded-full">
-              <CreditCard className="h-4 w-4 text-black" />
+            <button className="p-2 rounded-full hover:bg-orange-100 transition">
+              <CreditCard className="h-5 w-5 text-gray-700" />
             </button>
           </div>
 
           {user ? (
             <>
-              <span className="font-medium text-gray-800 text-sm block">Hi, {userName}</span>
-              <Link
-                to="/my-esims"
-                className="block px-3 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                My eSIMs
-              </Link>
-              <Link
-                to="/my-orders"
-                className="block px-3 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                My Orders
-              </Link>
+              <span className="font-medium text-gray-800 text-sm block">
+                Hi, {userName}
+              </span>
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-3 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-orange-600 transition"
+                className="w-full text-left px-4 py-2 bg-red-500 text-white rounded-full text-sm font-semibold hover:bg-red-600 transition-all shadow-md hover:shadow-lg"
               >
                 Logout
               </button>
@@ -117,14 +116,14 @@ export default function Navbar() {
             <>
               <Link
                 to="/login"
-                className="block px-3 py-2 border border-gray-300 rounded-full text-sm font-medium text-black hover:bg-gray-100"
+                className="block px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-100 transition-all"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Log in
               </Link>
               <Link
                 to="/register"
-                className="block px-3 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-orange-600"
+                className="block px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Sign up

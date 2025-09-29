@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ChevronDown, Search } from "lucide-react";
 
 const CountriesTabs = () => {
   const [activeTab, setActiveTab] = useState("local");
   const [items, setItems] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -55,9 +57,12 @@ const CountriesTabs = () => {
   useEffect(() => {
     fetchItems();
     setShowAll(false);
+    setSearch("");
   }, [activeTab]);
 
-  const displayedItems = showAll ? items : items.slice(0, 10);
+  const displayedItems = (showAll ? items : items.slice(0, 16)).filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleItemClick = (item) => {
     if (activeTab === "local") {
@@ -69,48 +74,19 @@ const CountriesTabs = () => {
     }
   };
 
-  const renderSkeletons = () =>
-    Array.from({ length: 8 }).map((_, idx) => (
-      <div
-        key={idx}
-        className="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-2xl shadow-lg animate-pulse"
-      >
-        <div className="w-20 h-20 bg-gray-200 rounded-full"></div>
-        <div className="h-4 w-16 bg-gray-300 rounded mt-2"></div>
-      </div>
-    ));
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1, duration: 0.5 },
-    }),
-  };
-
   return (
-    <div className="bg-[#faf4ef] py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl font-extrabold mb-10 text-center text-gray-900"
-        >
-          Explore eSIMs
-        </motion.h1>
-
-        {/* Tabs */}
-        <div className="flex justify-center space-x-10 mb-10">
+    <>
+        <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-4xl sm:text-5xl font-extrabold mb-10 text-center text-gray-900" > Explore eSIMs </motion.h1>
+         <div className="flex justify-center gap-4">
           {["local", "global", "discoverplus"].map((tab) => (
             <button
               key={tab}
-              className={`text-lg font-semibold pb-2 transition-all duration-300 cursor-pointer ${
-                activeTab === tab
-                  ? "border-4 bg-orange-500 rounded-2xl text-white  border-orange-500 px-1 py-2"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
+              className={`px-6 py-2 text-lg font-medium transition-all duration-300
+                ${
+                  activeTab === tab
+                    ? "bg-gray-100"
+                    : "bg-white text-gray-500 hover:bg-gray-100 border-gray-300"
+                }`}
               onClick={() => setActiveTab(tab)}
             >
               {tab === "local"
@@ -121,55 +97,77 @@ const CountriesTabs = () => {
             </button>
           ))}
         </div>
+    <div className="bg-gray-100">
+      <div className="max-w-7xl mx-auto pb-6">
+        {/* Tabs */}
+      
+
+        {/* Search Bar */}
+        {/* <div className="flex justify-center mb-8">
+          <div className="relative w-full sm:w-1/2">
+            <Search className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search data packs for 200+ countries and regions"
+              className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white shadow-sm"
+            />
+          </div>
+        </div> */}
+
+        {/* Heading */}
+        {/* <h2 className="text-2xl font-bold mb-6 text-gray-900">
+          Popular Countries
+        </h2> */}
 
         {/* Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {renderSkeletons()}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 bg-gray-100 p-20">
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-between bg-white p-4 rounded-lg animate-pulse"
+              >
+                <div className="w-8 h-5 bg-gray-200 rounded-sm"></div>
+                <div className="h-3 w-16 bg-gray-200 rounded"></div>
+              </div>
+            ))}
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {displayedItems.map((item, idx) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 bg-gray-100 p-20">
+              {displayedItems.map((item) => (
                 <motion.div
                   key={item.country_code || item.slug}
-                  custom={idx}
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate="visible"
-                  whileHover={{ scale: 1.05 }}
-                  className="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-2xl shadow-lg cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
+                  className="flex items-center justify-between bg-white rounded-lg px-4 py-4 shadow-lg cursor-pointer hover:shadow-md transition"
                   onClick={() => handleItemClick(item)}
                 >
-                  {item.imageUrl ? (
+                  <div className="flex items-center gap-3">
                     <img
                       src={item.imageUrl}
                       alt={item.title}
-                      className="w-20 h-20 object-cover rounded-full border-2 border-orange-400 shadow-md"
+                      className="w-8 h-6 object-cover rounded-sm"
                     />
-                  ) : (
-                    <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-                      <span className="text-gray-500 font-bold text-xl">
-                        {item.title[0]}
-                      </span>
-                    </div>
-                  )}
-                  <div className="text-center font-semibold text-gray-900 text-sm sm:text-base mt-2">
-                    {item.title}
+                    <span className="font-medium text-gray-900">
+                      {item.title}
+                    </span>
                   </div>
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
                 </motion.div>
               ))}
             </div>
 
-            {!showAll && items.length > 10 && (
-              <div className="flex justify-center mt-10">
+            {!showAll && items.length > 16 && (
+              <div className="flex justify-center">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowAll(true)}
-                  className="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 shadow-lg transition font-semibold"
+                  className="bg-gray-600 text-white px-6 py-3 rounded-sm hover:bg-orange-600 shadow-md text-sm transition font-semibold"
                 >
-                  Show All
+                  Show All Countries
                 </motion.button>
               </div>
             )}
@@ -177,6 +175,7 @@ const CountriesTabs = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

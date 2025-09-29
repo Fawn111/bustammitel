@@ -27,7 +27,7 @@ const AiraloFeatureSection = () => {
   };
 
   return (
-    <div className='bg-[#faf4ef] py-20 px-4'>
+    <div className='bg-white py-20 px-4'>
       <section className="bg-[#86cddb] rounded-3xl p-8 md:p-10 mx-auto max-w-7xl">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}

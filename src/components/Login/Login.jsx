@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-orange-100 via-white to-orange-50 px-4">
+    <div className="flex justify-center items-center min-h-screen bg-white  px-4">
       <form
         onSubmit={handleLogin}
         className="bg-white p-8 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-gray-200">
