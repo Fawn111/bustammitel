@@ -26,7 +26,7 @@ function Hero() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 mt-8 bg-orange-500 text-white rounded-full text-lg font-medium hover:bg-orange-600 transition"
+                className="px-6 py-3 mt-8 bg-blue-500 text-white rounded-full text-lg font-medium hover:bg-blue-600 cursor-pointer transition"
               >
                 Shop Now
               </motion.button>
