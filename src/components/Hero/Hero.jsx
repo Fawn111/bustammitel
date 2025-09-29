@@ -74,7 +74,6 @@ function Hero() {
               src={Heroimg}
               alt="Hero"
               className="w-full max-w-sm md:max-w-md lg:max-w-lg rounded-lg object-cover"
-              animate={{ y: [0, -20, 0] }} // floating effect
               transition={{ duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
             />
           </motion.div>

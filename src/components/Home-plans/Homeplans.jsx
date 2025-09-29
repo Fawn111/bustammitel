@@ -102,13 +102,13 @@ const CountriesTabs = () => {
         </motion.h1>
 
         {/* Tabs */}
-        <div className="flex justify-center space-x-6 mb-10">
+        <div className="flex justify-center space-x-10 mb-10">
           {["local", "global", "discoverplus"].map((tab) => (
             <button
               key={tab}
               className={`text-lg font-semibold pb-2 transition-all duration-300 cursor-pointer ${
                 activeTab === tab
-                  ? "border-b-4 border-orange-500 text-gray-900"
+                  ? "border-4 bg-orange-500 rounded-2xl text-white  border-orange-500 px-1 py-2"
                   : "text-gray-500 hover:text-gray-700"
               }`}
               onClick={() => setActiveTab(tab)}
