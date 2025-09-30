@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <nav className="w-full  bg-white sticky top-0 z-50">
-     <div className="max-w-8xl mx-28 flex items-center justify-between pl-2 pr-4 py-3">
+     <div className="max-w-8xl mx-14 flex items-center justify-between pl-2 pr-4 py-3">
   {/* Logo */}
   <Link to="/" className="flex items-center mr-80">
     <img
@@ -31,7 +31,7 @@ export default function Navbar() {
 
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-5">
+        <div className="hidden md:flex items-center space-x-5 ml-36">
           {/* Icons */}
           <button className="p-2 rounded-full hover:bg-orange-100 transition">
             <Globe className="h-5 w-5 text-gray-700" />
