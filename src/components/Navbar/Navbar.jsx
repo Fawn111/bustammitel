@@ -21,11 +21,11 @@ export default function Navbar() {
     <nav className="w-full  bg-white sticky top-0 z-50">
      <div className="max-w-8xl mx-28 flex items-center justify-between pl-2 pr-4 py-3">
   {/* Logo */}
-  <Link to="/" className="flex items-center mr-72">
+  <Link to="/" className="flex items-center mr-80">
     <img
       src={logo}
       alt="eSIM Logo"
-      className="h-12 w-auto object-contain md:h-20"
+      className="h-16 w-auto object-contain md:h-24"
     />
   </Link>
 
