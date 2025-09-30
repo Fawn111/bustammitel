@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Heroimg from "../../assets/hero.avif";
+import Heroimg from "../../assets/hero.png";
 
 function Hero() {
   return (
@@ -70,12 +70,18 @@ function Hero() {
             transition={{ duration: 1 }}
             className="flex justify-center items-center w-full lg:w-auto"
           >
-            <motion.img
-              src={Heroimg}
-              alt="Hero"
-              className="w-full max-w-sm md:max-w-md lg:max-w-lg rounded-lg object-cover"
-              transition={{ duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-            />
+          <motion.img
+  src={Heroimg}
+  alt="Hero"
+  className="w-full max-w-lg md:max-w-xl lg:max-w-2xl rounded-lg h-auto"
+  transition={{
+    duration: 3,
+    repeat: Infinity,
+    repeatType: "reverse",
+    ease: "easeInOut",
+  }}
+/>
+
           </motion.div>
         </div>
       </div>
