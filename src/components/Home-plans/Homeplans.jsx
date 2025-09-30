@@ -186,7 +186,7 @@ const CountriesTabs = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setShowAll(true)}
-                    className="bg-gray-600 text-white px-6 py-3 rounded-sm hover:bg-orange-600 shadow-md text-sm transition font-semibold"
+                    className="bg-blue-600 text-white px-6 py-3 rounded-sm hover:bg-blue-700 shadow-md text-sm transition font-semibold"
                   >
                     Show All Countries
                   </motion.button>
