@@ -61,7 +61,7 @@ export default function Login() {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 sm:p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 text-sm sm:text-base transition"
+            className="w-full p-3 sm:p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm sm:text-base transition"
             required
           />
         </div>
@@ -75,14 +75,14 @@ export default function Login() {
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 sm:p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 text-sm sm:text-base transition"
+            className="w-full p-3 sm:p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 text-sm sm:text-base transition"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-orange-500 text-white cursor-pointer py-3 sm:py-4 rounded-lg hover:bg-orange-600 transition duration-200 font-semibold text-lg sm:text-xl"
+          className="w-full bg-blue-500 text-white cursor-pointer py-3 sm:py-4 rounded-lg hover:bg-blue-600 transition duration-200 font-semibold text-lg sm:text-xl"
         >
           Log In
         </button>

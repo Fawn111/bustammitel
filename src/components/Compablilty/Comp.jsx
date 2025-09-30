@@ -204,13 +204,13 @@ export default function EsimDevicesPage() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* background gradients */}
-      <div className="absolute top-[-100px] left-[-150px] w-[400px] h-[400px] bg-gradient-to-br from-orange-200 via-pink-200 to-red-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-      <div className="absolute bottom-[-120px] right-[-100px] w-[350px] h-[350px] bg-gradient-to-tr from-yellow-200 via-orange-300 to-red-300 rounded-full blur-3xl opacity-30 animate-float"></div>
+      <div className="absolute top-[-100px] left-[-150px] w-[400px] h-[400px] bg-gradient-to-br from-blue-200 via-pink-200 to-red-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+      <div className="absolute bottom-[-120px] right-[-100px] w-[350px] h-[350px] bg-gradient-to-tr from-yellow-200 via-blue-300 to-red-300 rounded-full blur-3xl opacity-30 animate-float"></div>
 
       <div className="relative max-w-6xl mx-auto p-6 z-10">
         {/* Hero */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-orange-600 mb-4 drop-shadow-sm">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-blue-600 mb-4 drop-shadow-sm">
             eSIM Compatible Devices
           </h1>
           <p className="text-gray-700 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
@@ -222,7 +222,7 @@ export default function EsimDevicesPage() {
         </div>
 
         {/* Search */}
-        <div className="mb-8 flex items-center bg-white border border-orange-200 rounded-xl shadow-md px-4 py-3 hover:shadow-lg transition">
+        <div className="mb-8 flex items-center bg-white border border-blue-200 rounded-xl shadow-md px-4 py-3 hover:shadow-lg transition">
           <Search className="w-5 h-5 text-gray-500" />
           <input
             type="text"
@@ -239,11 +239,11 @@ export default function EsimDevicesPage() {
             Object.entries(filteredDevices).map(([brand, models], i) => (
               <div
                 key={i}
-                className="bg-white border border-orange-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition"
+                className="bg-white border border-blue-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <Smartphone className="w-5 h-5 text-orange-600" />
-                  <h2 className="text-lg font-bold text-orange-600">
+                  <Smartphone className="w-5 h-5 text-blue-600" />
+                  <h2 className="text-lg font-bold text-blue-600">
                     <Highlight text={brand} query={search} />
                   </h2>
                 </div>
@@ -264,8 +264,8 @@ export default function EsimDevicesPage() {
         </div>
 
         {/* Info Box */}
-        <div className="mt-10 text-sm md:text-base text-gray-700 bg-orange-50 border border-orange-200 p-5 rounded-xl shadow-md flex items-start gap-3">
-          <AlertCircle className="text-orange-500 w-5 h-5 mt-0.5" />
+        <div className="mt-10 text-sm md:text-base text-gray-700 bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-md flex items-start gap-3">
+          <AlertCircle className="text-blue-500 w-5 h-5 mt-0.5" />
           <p>
             <span className="font-semibold">Important:</span> Some regional
             models (China, Hong Kong, Taiwan, Turkey, Korea, etc.) may not

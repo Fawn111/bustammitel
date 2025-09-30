@@ -19,7 +19,7 @@ const faqs = [
             href="/compatibility"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-orange-600 font-semibold hover:underline"
+            className="text-blue-600 font-semibold hover:underline"
           >
             compatibility list here
           </a>
@@ -50,7 +50,7 @@ const faqs = [
             href="https://www.bustammitel.net/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-orange-600 font-semibold hover:underline"
+            className="text-blue-600 font-semibold hover:underline"
           >
             bustammitel.net
           </a>{" "}
@@ -85,7 +85,7 @@ const FaqSupportSection = () => {
         
         {/* FAQ Section */}
         <div className="flex-1">
-          <h2 className="text-3xl font-bold mb-6 text-orange-600">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold mb-6 text-blue-600">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {faqs.map((item, index) => (
               <div
@@ -96,7 +96,7 @@ const FaqSupportSection = () => {
                 <div className="flex justify-between items-center text-black font-medium">
                   <span>{item.q}</span>
                   <FaChevronDown
-                    className={`transition-transform duration-300 text-orange-500 ${
+                    className={`transition-transform duration-300 text-blue-500 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -114,7 +114,7 @@ const FaqSupportSection = () => {
         {/* Support Section */}
         <div className="flex-1 bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between border border-gray-100">
           <div>
-            <h3 className="text-lg text-orange-600 mb-2 font-extrabold">Support</h3>
+            <h3 className="text-lg text-blue-600 mb-2 font-extrabold">Support</h3>
             <p className="text-xl font-semibold text-black mb-4">
               Need help? We offer 24/7, multi-language support
             </p>

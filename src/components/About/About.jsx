@@ -12,8 +12,8 @@ export default function AboutPage() {
   return (
     <div className="bg-white min-h-screen py-16 px-6 relative overflow-hidden">
       {/* Background Decorative Gradient Blobs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-orange-300 via-pink-300 to-purple-400 rounded-full blur-3xl opacity-40 animate-float"></div>
-      <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-yellow-200 via-orange-200 to-red-300 rounded-full blur-3xl opacity-30 animate-float-slow"></div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-300 via-pink-300 to-purple-400 rounded-full blur-3xl opacity-40 animate-float"></div>
+      <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-yellow-200 via-blue-200 to-red-300 rounded-full blur-3xl opacity-30 animate-float-slow"></div>
 
       {/* Rotating SVG Blob */}
       <svg
@@ -42,7 +42,7 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left: Text */}
         <div className="space-y-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-orange-600 mb-2 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-blue-600 mb-2 leading-tight">
             About <span className="text-black">Bustammitel</span>
           </h1>
           <p className="text-gray-700 text-lg leading-relaxed">
@@ -50,7 +50,7 @@ export default function AboutPage() {
             make connectivity simpler, smarter, and more accessible for everyone.  
             Whether you’re traveling abroad, managing multiple numbers, or looking 
             for a flexible mobile solution, our 
-            <span className="text-orange-600 font-semibold"> eSIM technology </span> 
+            <span className="text-blue-600 font-semibold"> eSIM technology </span> 
             keeps you connected — anytime, anywhere.
           </p>
 
@@ -75,7 +75,7 @@ export default function AboutPage() {
                   key={idx}
                   className="bg-white shadow-md rounded-xl p-5 flex items-start gap-3 hover:shadow-lg hover:-translate-y-1 transition"
                 >
-                  <Icon className="w-7 h-7 text-orange-600 flex-shrink-0" />
+                  <Icon className="w-7 h-7 text-blue-600 flex-shrink-0" />
                   <div>
                     <h3 className="text-lg font-bold text-black mb-1">{item.title}</h3>
                     <p className="text-gray-600 text-sm">{item.desc}</p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
       </div>
 
       {/* Bottom CTA */}
-      <div className="mt-20 text-center bg-orange-50 border border-orange-200 py-10 px-6 rounded-2xl shadow-md relative z-10">
+      <div className="mt-20 text-center bg-blue-50 border border-blue-200 py-10 px-6 rounded-2xl shadow-md relative z-10">
         <h2 className="text-2xl md:text-3xl font-bold text-black mb-4">
           Ready to experience seamless connectivity?
         </h2>
@@ -109,7 +109,7 @@ export default function AboutPage() {
               if (el) el.scrollIntoView({ behavior: "smooth" });
             }, 100);
           }}
-          className="inline-block bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold shadow-md hover:bg-orange-700 hover:shadow-lg transition"
+          className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transition"
         >
           🚀 Explore Our eSIM Plans
         </Link>

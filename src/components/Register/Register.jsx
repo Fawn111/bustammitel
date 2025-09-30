@@ -34,7 +34,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-orange-100 via-white to-orange-50 px-4">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-100 via-white to-blue-50 px-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 sm:p-10 rounded-2xl shadow-xl w-full max-w-md border border-gray-200"
@@ -54,7 +54,7 @@ export default function Register() {
     type="text"
     name="name"
     placeholder="Enter your full name"
-    className="w-full p-3 sm:p-3.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+    className="w-full p-3 sm:p-3.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
     onChange={handleChange}
     required
   />
@@ -68,7 +68,7 @@ export default function Register() {
     type="email"
     name="email"
     placeholder="Enter your email"
-    className="w-full p-3 sm:p-3.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+    className="w-full p-3 sm:p-3.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
     onChange={handleChange}
     required
   />
@@ -82,7 +82,7 @@ export default function Register() {
     type="password"
     name="password"
     placeholder="••••••••"
-    className="w-full p-3 sm:p-3.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+    className="w-full p-3 sm:p-3.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
     onChange={handleChange}
     required
   />
@@ -90,7 +90,7 @@ export default function Register() {
 
         <button
           type="submit"
-          className="w-full bg-orange-500 text-white cursor-pointer py-3 sm:py-3.5 rounded-lg hover:bg-orange-600 transition duration-200 font-semibold text-lg"
+          className="w-full bg-blue-500 text-white cursor-pointer py-3 sm:py-3.5 rounded-lg hover:bg-blue-600 transition duration-200 font-semibold text-lg"
         >
           Register
         </button>
